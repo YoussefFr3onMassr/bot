@@ -9,7 +9,7 @@ app.get('/', (req, res) => {
   res.send('Hello World!');
 });
 
-const port = 8000;
+const port = 3000;
 app.listen(port, () => {
   console.log(`Server running at http://localhost:${port}`);
 });
@@ -26,17 +26,17 @@ bot.onText(/\/start/, (msg) => {
   const username = msg.from.username;
   const welcomeMessage = `Hello, ${username}!\n\n`
     + 'Welcome to the URL Shortener Bot!\n'
-    + 'You can use this bot to shorten URLs using the mybios.eu.org service.\n\n'
+    + 'You can use this bot to shorten URLs using the abomousa.fun service.\n\n'
     + 'To shorten a URL, just type or paste the URL directly in the chat, and the bot will provide you with the shortened URL.\n\n'
-    + 'If you haven\'t set your MyBios API token yet, use the command:\n/api YOUR_MYBIOS_API_TOKEN\n\n'
+    + 'If you haven\'t set your MyBios API token yet, use the command:\n/setarklinks YOUR_MYBIOS_API_TOKEN\n\n'
     + 'Now, go ahead and try it out!';
 
   bot.sendMessage(chatId, welcomeMessage);
 });
 
 
-// Command: /api
-bot.onText(/\/api (.+)/, (msg, match) => {
+// Command: /setarklinks
+bot.onText(/\/setarklinks (.+)/, (msg, match) => {
   const chatId = msg.chat.id;
   const userToken = match[1].trim(); // Get the API token provided by the user
 
@@ -64,12 +64,12 @@ async function shortenUrlAndSend(chatId, Url) {
   const arklinksToken = getUserToken(chatId);
 
   if (!arklinksToken) {
-    bot.sendMessage(chatId, 'Please provide your MyBios API token first. Use the command: /api YOUR_MYBIOS_API_TOKEN');
+    bot.sendMessage(chatId, 'Please provide your MyBios API token first. Use the command: /setarklinks YOUR_MYBIOS_API_TOKEN');
     return;
   }
 
   try {
-    const apiUrl = `https://mybios.eu.org/api?api=${arklinksToken}&url=${Url}`;
+    const apiUrl = `https://your-adlinkfly-url/api?api=${arklinksToken}&url=${Url}`;
 
     // Make a request to the MyBios API to shorten the URL
     const response = await axios.get(apiUrl);
